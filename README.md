@@ -1,2 +1,2 @@
 # Peer_Matcher
-Dope
+Used to optimizing matching between Peer Consultants and Unclass BYU students
