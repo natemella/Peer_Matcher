@@ -66,10 +66,46 @@ class Ui_MainWindow(object):
         self.__myfile =""
 
 
+    def clean_data(self):
+        data = pd.read_csv(self.__myfile, sep = '\t', encoding = "UTF-16")
+        my_cols = [x for x in data.columns if x.startswith("Q")]
+        clean_file = data[my_cols]
+        clean_file.columns = clean_file.iloc[0]
+        clean_file = clean_file[2::]
+        column_rename = {'Would you like to sign up to be a CONSULTANT or a CONSULTEE? (see definitions below)': "Role",
+                         'First Name': "First_Name",
+                         'Last Name': "Last_Name",
+                         'Current Email Address (please double check to make sure you have entered it correctly)': "Email",
+                         'Phone Number (please double check to make sure you have entered it correctly)': "Number",
+                         'How many semesters have you completed at BYU?': "Semesters",
+                         'What is your current major?': "Major",
+                         'How many semesters have you been in your current major?': "Major_Semesters",
+                         'What are your career goals? (Please choose all that apply.) - Selected Choice': "Career_Goals",
+                         'What are your career goals? (Please choose all that apply.) - Other - Text': "Career_Goals_Other",
+                         'Have you previously participated in the Life Sciences Peer Consulting Program as a CONSULTANT?': "Been_Consultant",
+                         'Have you previously participated in the Life Sciences Peer Consulting Program as a CONSULTEE?': "Been_Consultee",
+                         'Would you like to retain your previous consultant? (Please note that your previous consultant may not have signed up for this semester. If that is the case, we will assign you a new one.)': "Keep_Consultant",
+                         'Please enter the first AND last name of your previous consultant.': "Previous_Consultant",
+                         'Do you have a consultant gender preference?': "Gender_Preferenence",
+                         'Please share what skills and/or experience you believe qualify you to be a peer consultant.': "Brag",
+                         'Will you be able to attend at least four of the five LFSCI 190R, Peer Consulting class meetings? The consultant training meeting and the kickoff event are mandatory. The meetings are as follows: 1. Consultant Training: Thursday, September 3rd at 5:00 pm in 2102 LSB 2. Kickoff Event: Thursday, September 10th at 5:00 pm in 2102 LSB3. Class Meeting 1: Thursday, October 1st at 5:00 pm in 2102 LSB4. Class Meeting 2: Thursday, October 22nd at 5:00 pm in 2102 LSB5. Class Meeting 3: Thursday, November 19th at 5:00 pm in 2102 LSB': "No_Life",
+                         'What are you hoping to gain from your consultant this semester? (Please choose all that apply) - Selected Choice': "Gain",
+                         'What are you hoping to gain from your consultant this semester? (Please choose all that apply) - Other - Text': "Gain_Other",
+                         'I consent for my contact information to be released to my consultees.': "Consultant_Consent",
+                         'I consent for my contact information to be released to my consultant.': "Consultee_Consent",
+                         'I consent for my contact information to be released to clubs relevant to my major/career path.': "Club_Consent",
+                         'Keeping in mind that my consultant is receiving training and earning credit for this experience, I commit to actively participate and regularly communicate with him/her.': "Commitment"}
+
+        clean_file = clean_file.rename(columns = column_rename)
+        print(clean_file)
+
     # THIS IS WHERE MAIN CODE SHOULD GO.
     def print_path(self):
         if self.__myfile != "":
             print(self.__myfile)
+            self.clean_data()
+
+
 
 
 
