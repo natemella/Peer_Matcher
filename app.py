@@ -96,7 +96,11 @@ class Ui_MainWindow(object):
                          'I consent for my contact information to be released to clubs relevant to my major/career path.': "Club_Consent",
                          'Keeping in mind that my consultant is receiving training and earning credit for this experience, I commit to actively participate and regularly communicate with him/her.': "Commitment"}
 
+
+
         clean_file = clean_file.rename(columns = column_rename)
+        clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for MORE than 3 semesters and would like to be a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
+        clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for LESS than 3 semesters and would like to HAVE a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
         print(clean_file)
 
     # THIS IS WHERE MAIN CODE SHOULD GO.
