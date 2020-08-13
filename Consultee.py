@@ -42,7 +42,6 @@ class Consultee():
             major_vec = self.vec(self.major, nlp)
             self.embedding[0] = major_vec
 
-
         def parseCareerGoals(self):
             career_goal_list = self.career_goals.split(',')
             nlp = spacy.load("en_core_web_sm")

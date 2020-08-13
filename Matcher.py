@@ -2,7 +2,6 @@ from Consultant import Consultant
 from Consultee import Consultee
 from scipy.spatial.distance import cosine
 
-
 class Matcher():
 
     # Initialize the data from the clean_file dataframe you get from app.py
@@ -29,8 +28,6 @@ class Matcher():
         self.populate_initial_arrays()
         self.parsePeeps()
 
-
-
     def cosine_sim(self, cs, ct):
         major_sim = 1-cosine(cs.embedding[0], ct.embedding[0])
         goals_sim = 1-cosine(cs.embedding[1], ct.embedding[1])
@@ -42,9 +39,6 @@ class Matcher():
         rate = sum(avgs)
 
         return rate
-
-
-
 
     def parsePeeps(self):
         for consultant in self.consultants:
