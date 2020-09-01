@@ -206,6 +206,8 @@ class Ui_MainWindow(object):
                     temp_output.write('\t\t\t\t\t\t\t' + cs_info)
                     ncs -= 1
         temp_output.close()
+        df = pd.read_csv("temp_output.tsv", sep="\t")
+        df.to_excel("Peer_Consulting_Matcher.xlsx")
         print("Done")
 
 
