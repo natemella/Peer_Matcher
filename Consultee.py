@@ -20,15 +20,22 @@ class Consultee():
             self.previous_consultant = data['Previous_Consultant']
             self.gender_preference = data['Gender_Preferenence']
             self.brag = data['Brag']
-            self.no_life = data['No_Life']
+            try:
+                self.no_life = data['No_Life']
+            except Exception:
+                self.no_life = ""
             self.gain = data['Gain']
             self.gain_other = data['Gain_Other']
             self.consultant_consent = data['Consultant_Consent']
             self.consultee_consent = data['Consultee_Consent']
             self.club_consent = data['Club_Consent']
-            self.commitment = data['Commitment']
+            try:
+                self.commitment = data['Commitment']
+            except Exception:
+                self.commitment = ""
             self.majors = {}
             self.career_goals_dict = {}
+            self.consultant = ''
 
         def vec(self, s, nlp):
             return nlp(s).vector

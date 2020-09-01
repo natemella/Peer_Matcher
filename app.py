@@ -2,6 +2,7 @@ import pandas as pd
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 from Matcher import Matcher
+import copy
 
 def path_to_list(path):
     folders = []
@@ -101,9 +102,113 @@ class Ui_MainWindow(object):
 
         clean_file = clean_file.rename(columns = column_rename)
         clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for MORE than 3 semesters and would like to be a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
-        clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for LESS than 3 semesters and would like to HAVE a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
+        clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for FEWER than 3 semesters and would like to HAVE a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
         peer_matcher = Matcher(clean_file)
+        print("file cleaned")
         peer_matcher.match()
+        print("NLP Parsing complete")
+
+        # Make a dictionary where we map a combo (tuple) of consultant - consultees to a match score {tuple : float}
+        my_matches = {}
+        for ct in peer_matcher.consultants:
+            for cs in peer_matcher.consultees:
+                match_score = peer_matcher.cosine_sim(ct, cs)
+                my_matches[(ct, cs)] = match_score
+
+        # Make a list where we will store final matches
+        final_matches = []
+
+        # loop through our dictionary of potentials patches
+        for x in list(my_matches):
+            if len(my_matches) == 0:
+                break
+            # identify the best match
+            current_max = max(my_matches.values())
+
+            # Loop through dictionary of of matches to find the max
+            for y in list(my_matches):
+                if my_matches[y] == current_max:
+                    # Remove the match from potential matches
+                    my_matches.pop(y)
+                    # Add the max to the list of final matches
+                    final_matches.append(y)
+                    ct = y[0]
+                    ct.consultees.append(y[1])
+                    cs = y[1]
+                    cs.consultant = ct
+                    break
+
+            # Remove all current matches to this consultee
+            consultee_to_remove = final_matches[-1][1]
+            for x in list(my_matches):
+                if x[1] == consultee_to_remove:
+                    my_matches.pop(x)
+
+            # If the consultant already has five matches, remove them
+            consultant_to_remove = final_matches[-1][0]
+            if len(consultant_to_remove.consultees) >= 15:
+                for x in list(my_matches):
+                    if x[0] == consultant_to_remove:
+                        my_matches.pop(x)
+
+            for x in list(my_matches):
+                if x[0] == consultant_to_remove:
+                    my_matches[x] -= 0.05
+
+        print(final_matches)
+
+        temp_output = open("temp_output.tsv", "w")
+
+        temp_output.write("Consultant Email\tCareer Path\t"
+                          "Other Career Path\tConsultee First Name\t"
+                          "Consultee Last Name\tMajor\tCount\tConsultant Full Name"
+                          "\tConsultee First Name\tConsultee Last Name\tConsultee Email"
+                          "\tPhone Number\tMajor\tInterests\tCareer Path\tOther Career Path"
+                          "\tPrevious Consultant\tQ16\tQ17\tGender Preferance\tGain\tGain Other\n")
+
+        # Total Majors
+        total_majors = set()
+        for x in peer_matcher.consultants:
+            if x.major not in total_majors:
+                total_majors.add(x.major)
+
+        for x in peer_matcher.consultees:
+            if x.major not in total_majors:
+                total_majors.add(x.major)
+
+        for major in total_majors:
+            major_consultants = [x for x in peer_matcher.consultants if x.major == major]
+            major_consultees = [x for x in peer_matcher.consultees if x.major == major]
+
+            num_consultants = len(major_consultants)
+            nct = copy.copy(num_consultants)
+            num_consultees = len(major_consultees)
+            ncs = copy.copy(num_consultees)
+
+            num_rows = copy.copy(max(num_consultants, num_consultees))
+            for i in range(num_rows):
+                if i < num_consultants:
+                    ct = major_consultants[i]
+                    ct_info = f'{ct.email}\t{ct.career_goals}\t{ct.career_goals_other}\t{ct.f_name}\t{ct.l_name}\t{ct.major}\t{len(ct.consultees)}\t'
+                if i < num_consultees:
+                    cs = major_consultees[i]
+                    cs_info = f'{cs.consultant.f_name} {cs.consultant.l_name}\t{cs.f_name}\t{cs.l_name}\t{cs.email}\t{cs.number}\t{cs.major}\t{cs.no_life}\t' \
+                            f'{cs.career_goals}\t{cs.career_goals_other}\t{cs.previous_consultant}\t' \
+                            f'{cs.gender_preference}\t{cs.gain}\t{cs.gain_other}\n'
+                if nct > 0 and ncs > 0:
+                    temp_output.write(ct_info + cs_info)
+                    nct -= 1
+                    ncs -= 1
+                elif nct > 0 and ncs == 0:
+                    temp_output.write(ct_info + "\n")
+                    nct -= 1
+                elif ncs > 0 and nct == 0:
+                    temp_output.write('\t\t\t\t\t\t\t' + cs_info)
+                    ncs -= 1
+        temp_output.close()
+        print("Done")
+
+
 
     # THIS IS WHERE MAIN CODE SHOULD GO.
     def print_path(self):
