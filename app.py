@@ -153,7 +153,7 @@ class Ui_MainWindow(object):
 
             for x in list(my_matches):
                 if x[0] == consultant_to_remove:
-                    my_matches[x] -= 0.05
+                    my_matches[x] -= 0.02
 
         print(final_matches)
 
@@ -163,8 +163,8 @@ class Ui_MainWindow(object):
                           "Other Career Path\tConsultee First Name\t"
                           "Consultee Last Name\tMajor\tCount\tConsultant Full Name"
                           "\tConsultee First Name\tConsultee Last Name\tConsultee Email"
-                          "\tPhone Number\tMajor\tInterests\tCareer Path\tOther Career Path"
-                          "\tPrevious Consultant\tQ16\tQ17\tGender Preferance\tGain\tGain Other\n")
+                          "\tPhone Number\tMajor\tCareer Path\tOther Career Path"
+                          "\tPrevious Consultant\tGender Preference\tDesired Help\tDesired Help Other\n")
 
         # Total Majors
         total_majors = set()
@@ -192,7 +192,7 @@ class Ui_MainWindow(object):
                     ct_info = f'{ct.email}\t{ct.career_goals}\t{ct.career_goals_other}\t{ct.f_name}\t{ct.l_name}\t{ct.major}\t{len(ct.consultees)}\t'
                 if i < num_consultees:
                     cs = major_consultees[i]
-                    cs_info = f'{cs.consultant.f_name} {cs.consultant.l_name}\t{cs.f_name}\t{cs.l_name}\t{cs.email}\t{cs.number}\t{cs.major}\t{cs.no_life}\t' \
+                    cs_info = f'{cs.consultant.f_name} {cs.consultant.l_name}\t{cs.f_name}\t{cs.l_name}\t{cs.email}\t{cs.number}\t{cs.major}\t' \
                             f'{cs.career_goals}\t{cs.career_goals_other}\t{cs.previous_consultant}\t' \
                             f'{cs.gender_preference}\t{cs.gain}\t{cs.gain_other}\n'
                 if nct > 0 and ncs > 0:
