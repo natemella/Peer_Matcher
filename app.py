@@ -73,7 +73,8 @@ class Ui_MainWindow(object):
         my_cols = [x for x in data.columns if x.startswith("Q")]
         clean_file = data[my_cols]
         clean_file.columns = clean_file.iloc[0]
-        clean_file = clean_file[2::]
+        clean_file = clean_file[2::] # Skip first two lines of junk
+        clean_file = clean_file[clean_file['First Name'].notna()]
         column_rename = {'Would you like to sign up to be a CONSULTANT or a CONSULTEE? (see definitions below)': "Role",
                          'First Name': "First_Name",
                          'Last Name': "Last_Name",
