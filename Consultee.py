@@ -3,6 +3,7 @@ import numpy as np
 
 class Consultee():
         def __init__(self, data):
+
             self.embedding = [0,0]
             self.role = data['Role']
             self.l_name = data['Last_Name']
@@ -15,20 +16,35 @@ class Consultee():
             self.career_goals = data['Career_Goals']
             self.career_goals_other = data['Career_Goals_Other']
             self.been_consultant = data['Been_Consultant']
-            self.been_consultee = data['Been_Consultee']
-            self.keep_consultant = data['Keep_Consultant']
-            self.previous_consultant = data['Previous_Consultant']
-            self.gender_preference = data['Gender_Preferenence']
-            self.brag = data['Brag']
+            # self.been_consultee = data['Been_Consultee']
+            # self.keep_consultant = data['Keep_Consultant']
+            # self.previous_consultant = data['Previous_Consultant']
+            # self.gender_preference = data['Gender_Preferenence']
+            # self.brag = data['Brag']
             try:
                 self.no_life = data['No_Life']
             except Exception:
                 self.no_life = ""
-            self.gain = data['Gain']
-            self.gain_other = data['Gain_Other']
-            self.consultant_consent = data['Consultant_Consent']
-            self.consultee_consent = data['Consultee_Consent']
-            self.club_consent = data['Club_Consent']
+            try:
+                self.gain = data['Gain']
+            except Exception:
+                self.gain = ""
+            try:
+                self.gain_other = data['Gain_Other']
+            except Exception:
+                self.gain_other = ""
+            try:
+                self.consultant_consent = data['Consultant_Consent']
+            except Exception:
+                self.consultant_consent = ""
+            try:
+                self.consultee_consent = data['Consultee_Consent']
+            except Exception:
+                self.consultant_consent = ""
+            try:
+                self.club_consent = data['Club_Consent']
+            except Exception:
+                self.club_consent = ""
             try:
                 self.commitment = data['Commitment']
             except Exception:
