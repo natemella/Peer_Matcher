@@ -15,7 +15,7 @@ class Matcher():
     # Split up the consultants from the consultees
     def populate_initial_arrays(self):
         for index, row in self.initialData.iterrows():
-            if (row['Role'] == "Consultant"):
+            if (row['Role'] == "Consultant  (I have been in my CURRENT Life Sciences major for MORE than 3 semesters and would like to BE a Life Sciences Peer Consultant)"):
                 tempConsultant = Consultant(row)
                 self.consultants.append(tempConsultant)
             if (row['Role'] == "Consultee"):

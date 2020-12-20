@@ -86,7 +86,8 @@ class Ui_MainWindow(object):
                          'What are your career goals? (Please choose all that apply.) - Selected Choice': "Career_Goals",
                          'What are your career goals? (Please choose all that apply.) - Other - Text': "Career_Goals_Other",
                          'Have you previously participated in the Life Sciences Peer Consulting Program as a CONSULTANT?': "Been_Consultant",
-                         'Have you previously participated in the Life Sciences Peer Consulting Program as a CONSULTEE?': "Been_Consultee",
+                         #'Have you previously participated in the Life Sciences Peer Consulting Program as a CONSULTEE?': "Been_Consultee",
+                         'Do you have a consultant gender preference? - Selected Choice' : 'Gender_Pref',
                          'Would you like to retain your previous consultant? (Please note that your previous consultant may not have signed up for this semester. If that is the case, we will assign you a new one.)': "Keep_Consultant",
                          'Please enter the first AND last name of your previous consultant.': "Previous_Consultant",
                          'Do you have a consultant gender preference?': "Gender_Preferenence",
@@ -102,7 +103,7 @@ class Ui_MainWindow(object):
 
 
         clean_file = clean_file.rename(columns = column_rename)
-        clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for MORE than 3 semesters and would like to be a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
+        clean_file['Role'] = [x.replace(" Consultant  (I have been in my CURRENT Life Sciences major for MORE than 3 semesters and would like to BE a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
         clean_file['Role'] = [x.replace(" (I have been in my CURRENT Life Sciences major for FEWER than 3 semesters and would like to HAVE a Life Sciences Peer Consultant)","") for x in clean_file['Role']]
         peer_matcher = Matcher(clean_file)
         print("file cleaned")

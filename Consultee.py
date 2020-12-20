@@ -18,37 +18,37 @@ class Consultee():
             self.been_consultant = data['Been_Consultant']
             # self.been_consultee = data['Been_Consultee']
             # self.keep_consultant = data['Keep_Consultant']
-            # self.previous_consultant = data['Previous_Consultant']
-            # self.gender_preference = data['Gender_Preferenence']
+            self.previous_consultant = "NAN"
+            self.gender_preference = data['Gender_Pref']
             # self.brag = data['Brag']
-            try:
-                self.no_life = data['No_Life']
-            except Exception:
-                self.no_life = ""
-            try:
-                self.gain = data['Gain']
-            except Exception:
-                self.gain = ""
-            try:
-                self.gain_other = data['Gain_Other']
-            except Exception:
-                self.gain_other = ""
-            try:
-                self.consultant_consent = data['Consultant_Consent']
-            except Exception:
-                self.consultant_consent = ""
-            try:
-                self.consultee_consent = data['Consultee_Consent']
-            except Exception:
-                self.consultant_consent = ""
-            try:
-                self.club_consent = data['Club_Consent']
-            except Exception:
-                self.club_consent = ""
-            try:
-                self.commitment = data['Commitment']
-            except Exception:
-                self.commitment = ""
+            # try:
+            #     self.no_life = data['No_Life']
+            # except Exception:
+            #     self.no_life = ""
+            # try:
+            self.gain = data['Gain']
+            # except Exception:
+            #     self.gain = ""
+            # try:
+            self.gain_other = data['Gain_Other']
+            # except Exception:
+            #     self.gain_other = ""
+            # try:
+            #     self.consultant_consent = data['Consultant_Consent']
+            # except Exception:
+            #     self.consultant_consent = ""
+            # try:
+            #     self.consultee_consent = data['Consultee_Consent']
+            # except Exception:
+            #     self.consultant_consent = ""
+            # try:
+            #     self.club_consent = data['Club_Consent']
+            # except Exception:
+            #     self.club_consent = ""
+            # try:
+            #     self.commitment = data['Commitment']
+            # except Exception:
+            #     self.commitment = ""
             self.majors = {}
             self.career_goals_dict = {}
             self.consultant = ''

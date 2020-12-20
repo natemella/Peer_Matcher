@@ -16,27 +16,27 @@ class Consultant():
         self.career_goals = data['Career_Goals']
         self.career_goals_other = data['Career_Goals_Other']
         self.been_consultant = data['Been_Consultant']
-        self.been_consultee = data['Been_Consultee']
-        self.keep_consultant = data['Keep_Consultant']
-        self.previous_consultant = data['Previous_Consultant']
-        self.gender_preference = data['Gender_Preferenence']
-        try:
-            self.brag = data['Brag']
-        except Exception:
-            self.brag = ""
-        try:
-            self.no_life = data['No_Life']
-        except Exception:
-            self.no_life = ""
+        # #self.been_consultee = data['Been_Consultee']
+        # self.keep_consultant = data['Keep_Consultant']
+        self.previous_consultant = "NAN"
+        self.gender_preference = data['Gender_Pref']
+        # try:
+        #     self.brag = data['Brag']
+        # except Exception:
+        #     self.brag = ""
+        # try:
+        #     self.no_life = data['No_Life']
+        # except Exception:
+        #     self.no_life = ""
         self.gain = data['Gain']
         self.gain_other = data['Gain_Other']
-        self.consultant_consent = data['Consultant_Consent']
-        self.consultee_consent = data['Consultee_Consent']
-        self.club_consent = data['Club_Consent']
-        try:
-            self.commitment = data['Commitment']
-        except Exception:
-            self.commitment = ""
+        # self.consultant_consent = data['Consultant_Consent']
+        # self.consultee_consent = data['Consultee_Consent']
+        # self.club_consent = data['Club_Consent']
+        # try:
+        #     self.commitment = data['Commitment']
+        # except Exception:
+        #     self.commitment = ""
         self.majors = {}
         self.career_goals_dict = {}
 
